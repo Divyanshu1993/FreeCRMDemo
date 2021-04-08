@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -16,6 +17,8 @@ public class TestBase {
 	
 	public static WebDriver driver;
 	public static Properties prop;
+	public static Properties prop2;
+	public static Logger log = Logger.getLogger(TestBase.class);
 	
 	public TestBase() {
 		
@@ -26,6 +29,10 @@ public class TestBase {
 													+"\\qa\\config\\config.properties");
 			prop.load(ip);
 			
+			prop2 = new Properties();
+			FileInputStream ip2 = new FileInputStream("C:\\Users\\dsharma250\\FreeCRMWorkspace\\FreeCRMTest\\src\\main\\resources\\log4j.properties");
+			prop2.load(ip2);
+			
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -35,6 +42,8 @@ public class TestBase {
 	}
 	
 	public static void initialization() {
+		
+		log.info("****************************** Starting test cases execution  *****************************************");
 		String browserName = prop.getProperty("browser");
 		
 		if(browserName.equals("chrome")) {
